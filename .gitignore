@@ -1,0 +1,8 @@
+*.txt
+env
+checkpoints
+__pycache__
+.idea
+out
+Slike
+wgan_gp_tensorflow.py

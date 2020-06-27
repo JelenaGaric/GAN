@@ -1,4 +1,4 @@
-#import tensorflow as tf
+import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -8,10 +8,12 @@ from numpy import newaxis
 import pickle
 import input_data
 from tensorflow.python.framework import dtypes
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+#import tensorflow.compat.v2 as tf
+#tf.disable_v2_behavior()
 
 data = []
+
+crop_img_size = 64
 
 # Load in the images
 if not os.path.isfile('slike_np.p'):
@@ -19,8 +21,9 @@ if not os.path.isfile('slike_np.p'):
         img = cv2.imread('Slike/{0}'.format(filepath), 0)
         height = img.shape[0]
         width = img.shape[1]
-        crop_img = img[int(0.15 * height):int(0.85 * height), int(0.15 * width):int(0.85 * width)]
-        resized = cv2.resize(crop_img, (crop_img.shape[0], crop_img.shape[1]), interpolation=cv2.INTER_AREA)
+        crop_img = img[int(0.1 * height):int(0.9 * height), int(0.1 * width):int(0.9 * width)]
+        #resized = cv2.resize(crop_img, (crop_img.shape[0], crop_img.shape[1]), interpolation=cv2.INTER_AREA)
+        resized = cv2.resize(crop_img, (crop_img_size, crop_img_size), interpolation=cv2.INTER_AREA)
         #plt.imshow(resized, cmap='gray')
         #plt.show()
         data.append(resized)
@@ -42,6 +45,8 @@ mnist = input_data._Datasets(train=train, validation=None, test=None)
 
 
 img_size = data.shape[1]
+print(img_size)
+
 mb_size = 32
 X_dim = img_size*img_size
 z_dim = 10
@@ -63,7 +68,7 @@ def plot(samples):
         #ax.set_yticklabels([])
         #ax.set_aspect('equal')
         plt.imshow(sample.reshape(img_size, img_size), cmap='Greys_r')
-        fig.set_size_inches(3.3, 3.3)
+        fig.set_size_inches(2.1, 2.1)
 
     return fig
 
