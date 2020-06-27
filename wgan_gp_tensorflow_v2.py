@@ -148,9 +148,6 @@ G_solver = (tf.compat.v1.train.AdamOptimizer(learning_rate=lr, beta1=0.5)
             .minimize(G_loss, var_list=theta_G, global_step=global_step))
 
 
-#for saving checkpoints
-#tf.compat.v1.reset_default_graph()
-
 sess = tf.compat.v1.Session()
 sess.run(tf.compat.v1.global_variables_initializer())
 
