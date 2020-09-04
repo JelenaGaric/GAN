@@ -23,11 +23,29 @@ if not os.path.isfile('slike_np.p'):
         img = cv2.imread('Slike/{0}'.format(filepath), 0)
         height = img.shape[0]
         width = img.shape[1]
-        crop_img = img[int(0.1 * height):int(0.9 * height), int(0.1 * width):int(0.9 * width)]
+        crop_img=img
+
+        #crop_img = img[int(0.1 * height):int(0.9 * height), int(0.1 * width):int(0.9 * width)]
         #resized = cv2.resize(crop_img, (crop_img.shape[0], crop_img.shape[1]), interpolation=cv2.INTER_AREA)
         resized = cv2.resize(crop_img, (crop_img_size, crop_img_size), interpolation=cv2.INTER_AREA)
+        height_resized = resized.shape[0]
+        width_resized = resized.shape[1]
+        #resized = cv2.line(resized, (0, int(0.2 * height)), (int(0.5 * width), 0), (0, 255, 0) , 9)
+        pts = np.array([[0, int(0.4 * height_resized)], [int(0.59 * width), 0], [0,0]], np.int32)
+        cv2.fillPoly(resized, [pts], color=[0, 0, 0])
+
+        pts = np.array([[width_resized, int(0.2 * height_resized)], [int(0.4 * width_resized), 0], [width_resized, 0]], np.int32)
+        cv2.fillPoly(resized, [pts], color=[0, 0, 0])
+
+        pts = np.array([[0, int(0.6 * height_resized)], [int(0.6 * width_resized), height_resized], [0, height_resized]], np.int32)
+        cv2.fillPoly(resized, [pts], color=[0, 0, 0])
+
+        pts = np.array([[int(0.4 * width_resized), height_resized], [width_resized, int(0.6 * height_resized)], [width_resized, height_resized]], np.int32)
+        cv2.fillPoly(resized, [pts], color=[0, 0, 0])
+
         #plt.imshow(resized, cmap='gray')
         #plt.show()
+
         data.append(resized)
     data = np.array(data)
     data = data[:, :, :, newaxis]
