@@ -6,4 +6,4 @@ Generating CT medical scans with wGAN ( Wasserstein Generative adversarial netwo
 
 Some generated results:
 
-![alt text](https://live.staticflickr.com/65535/51528766873_fa5b00271a_z.jpg)
+![alt text](https://live.staticflickr.com/65535/51529256884_f8f7d07fff_z.jpg)
